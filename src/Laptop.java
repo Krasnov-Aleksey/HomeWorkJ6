@@ -21,20 +21,20 @@ public class Laptop {
                 '}';
     }
 
-    @Override
-    public int hashCode() {
-        return ram+7*hdd+operatingSystem.hashCode()+13*color.hashCode();
-    }
+//   @Override
+//    public int hashCode() {
+//        return ram+7*hdd+operatingSystem.hashCode()+13*color.hashCode();
+//    }
 
-    @Override
-    public boolean equals(Object obj) {
-        if(this == obj){
-            return true;
-        }
-        if(!(obj instanceof Laptop)){
-            return false;
-        }
-        Laptop laptop = (Laptop) obj;
-        return ram == laptop.ram && hdd == laptop.hdd && operatingSystem.equalsIgnoreCase(laptop.operatingSystem)&&color.equalsIgnoreCase(laptop.color);
-    }
+//    @Override
+//    public boolean equals(Object obj) {
+//        if(this == obj){
+//            return true;
+//        }
+//        if(!(obj instanceof Laptop)){
+//            return false;
+//        }
+//        Laptop laptop = (Laptop) obj;
+//        return ram == laptop.ram && hdd == laptop.hdd && operatingSystem.equalsIgnoreCase(laptop.operatingSystem)&&color.equalsIgnoreCase(laptop.color);
+//    }
 }

@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class Main {
 /*
@@ -27,39 +24,82 @@ public class Main {
  */
 
     public static void main(String[] args) {
+
         Set<Laptop> laptopSet = new HashSet<>();
 
-        Laptop lt1 = new Laptop(4,512, "Window","Red");
+        Laptop lt1 = new Laptop(4,512, "Windows","Red");
         Laptop lt2 = new Laptop(6,1024, "Linux","Green");
-        Laptop lt3 = new Laptop(8,2048, "Window","Red");
+        Laptop lt3 = new Laptop(8,2048, "Windows","Red");
         Laptop lt4 = new Laptop(2,512, "MacOS","Blue");
-        Laptop lt5 = new Laptop(16,2048, "Window","White");
+        Laptop lt5 = new Laptop(16,2048, "Windows","White");
         Laptop lt6 = new Laptop(4,512, "MacOS","Red");
-        Laptop lt7 = new Laptop(4,512, "MacOS","Red");
 
-        laptopSet.add(lt1);
-        laptopSet.add(lt2);
-        laptopSet.add(lt3);
-        laptopSet.add(lt4);
-        laptopSet.add(lt5);
-        laptopSet.add(lt6);
-        laptopSet.add(lt7);
 
-       // System.out.println(lt6.equals(lt7));
+        List<Laptop> laptopList = new ArrayList<>();
+        laptopList.add(lt1);
+        laptopList.add(lt2);
+        laptopList.add(lt3);
+        laptopList.add(lt4);
+        laptopList.add(lt5);
+        laptopList.add(lt6);
 
-        for(Laptop laptop:laptopSet){
-            System.out.println(laptop);
-        }
+        menu(laptopList,laptopSet);
+    }
+    static void menu(List<Laptop> laptopList, Set<Laptop> laptopSet){
 
-        List<Laptop>laptopList = new ArrayList<>();
-        for (Laptop laptop:laptopSet){
-            if(laptop.ram==4){
-                laptopList.add(laptop);
+        System.out.println("1 - ОЗУ");
+        System.out.println("2 - Объем ЖД");
+        System.out.println("3 - Операционная система");
+        System.out.println("4 - Цвет");
+        System.out.println("5 - Выйти из меню");
+        Scanner scanner = new Scanner(System.in);
+
+        boolean flag = true;
+        while (flag){
+
+            System.out.println("Введите цифру, соответствующую необходимому критерию ");
+            Integer choice = scanner.nextInt();
+            switch (choice){
+                case 1:
+                    System.out.println("Введите размер ОЗУ");
+                    Integer text1 = scanner.nextInt();
+                    for (Laptop laptop:laptopList)
+                        if (laptop.ram>=text1){
+                            laptopSet.add(laptop);
+                        }
+                    break;
+                case 2:
+                    System.out.println("Введите размер ЖД");
+                    Integer text2 = scanner.nextInt();
+                    for (Laptop laptop:laptopList)
+                        if (laptop.hdd>=text2){
+                            laptopSet.add(laptop);
+                        }
+                    break;
+                case 3:
+                    System.out.println("Введите название операционной системы");
+                    String text3 = scanner.next();
+                    for (Laptop laptop:laptopList)
+                        if (laptop.operatingSystem.equalsIgnoreCase(text3)){
+                            laptopSet.add(laptop);
+                        }
+
+                    break;
+                case 4:
+                    System.out.println("Введите цвет");
+                    String text4 = scanner.next();
+                    for (Laptop laptop:laptopList)
+                        if (laptop.color.equalsIgnoreCase(text4)){
+                            laptopSet.add(laptop);
+                        }
+                    break;
+                case 5:
+                    for (Laptop laptop: laptopSet) {
+                        System.out.println(laptop);
+                    }
+                    flag=false;
+                    break;
             }
-        }
-        System.out.println();
-        for (Laptop laptop: laptopList){
-            System.out.println(laptop);
         }
     }
 }
