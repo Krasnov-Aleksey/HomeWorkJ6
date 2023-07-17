@@ -42,64 +42,147 @@ public class Main {
         laptopList.add(lt4);
         laptopList.add(lt5);
         laptopList.add(lt6);
+        Map menuMap = new HashMap<>();
 
-        menu(laptopList,laptopSet);
+
+        menu(laptopList,laptopSet,menuMap);
+
     }
-    static void menu(List<Laptop> laptopList, Set<Laptop> laptopSet){
+    static void menu(List<Laptop> laptopList, Set<Laptop> laptopSet,Map menuMap){
 
         System.out.println("1 - ОЗУ");
         System.out.println("2 - Объем ЖД");
         System.out.println("3 - Операционная система");
         System.out.println("4 - Цвет");
         System.out.println("5 - Выйти из меню");
+
         Scanner scanner = new Scanner(System.in);
 
         boolean flag = true;
         while (flag){
-
             System.out.println("Введите цифру, соответствующую необходимому критерию ");
             Integer choice = scanner.nextInt();
+
             switch (choice){
                 case 1:
                     System.out.println("Введите размер ОЗУ");
-                    Integer text1 = scanner.nextInt();
-                    for (Laptop laptop:laptopList)
-                        if (laptop.ram>=text1){
-                            laptopSet.add(laptop);
-                        }
+                    menuMap.put(choice,scanner.nextInt());
                     break;
                 case 2:
                     System.out.println("Введите размер ЖД");
-                    Integer text2 = scanner.nextInt();
-                    for (Laptop laptop:laptopList)
-                        if (laptop.hdd>=text2){
-                            laptopSet.add(laptop);
-                        }
+                    menuMap.put(choice,scanner.nextInt());
                     break;
                 case 3:
                     System.out.println("Введите название операционной системы");
-                    String text3 = scanner.next();
-                    for (Laptop laptop:laptopList)
-                        if (laptop.operatingSystem.equalsIgnoreCase(text3)){
-                            laptopSet.add(laptop);
-                        }
-
+                    menuMap.put(choice,scanner.next());
                     break;
                 case 4:
                     System.out.println("Введите цвет");
-                    String text4 = scanner.next();
-                    for (Laptop laptop:laptopList)
-                        if (laptop.color.equalsIgnoreCase(text4)){
-                            laptopSet.add(laptop);
-                        }
+                    menuMap.put(choice,scanner.next());
                     break;
                 case 5:
-                    for (Laptop laptop: laptopSet) {
-                        System.out.println(laptop);
-                    }
+                    //System.out.println(menuMap);
+                    filter(laptopList,laptopSet,menuMap);
                     flag=false;
                     break;
             }
+        }
+    }
+    static void filter(List<Laptop> laptopList, Set<Laptop> laptopSet,Map menuMap){
+//        for(Laptop laptop:laptopList){
+//            if(laptop.ram>=(int)menuMap.get(1)&&laptop.hdd>=(int)menuMap.get(2)
+//            && laptop.operatingSystem.equalsIgnoreCase((String) menuMap.get(3))&&
+//            laptop.color.equalsIgnoreCase((String) menuMap.get(4))){
+//                laptopSet.add(laptop);
+//            }
+//        }
+        Set <Laptop> mapFilter1 = new HashSet();
+        Set <Laptop> mapFilter2 = new HashSet();
+        Set <Laptop> mapFilter3 = new HashSet();
+        Set <Laptop> mapFilter4 = new HashSet();
+
+        if (menuMap.containsKey(1)){
+            for (Laptop laptop:laptopList){
+                if (laptop.ram>=(int)menuMap.get(1)){
+                    mapFilter1.add(laptop);
+                }
+            }
+        }
+        if (menuMap.containsKey(2)){
+            for (Laptop laptop:laptopList){
+                if (laptop.hdd>=(int)menuMap.get(2)){
+                    mapFilter2.add(laptop);
+                }
+            }
+        }
+        if(menuMap.containsKey(3)){
+            for(Laptop laptop:laptopList){
+                if(laptop.operatingSystem.equalsIgnoreCase((String) menuMap.get(3))){
+                    mapFilter3.add(laptop);
+                }
+            }
+        }
+
+        if (menuMap.containsKey(4)){
+            for (Laptop laptop:laptopList){
+                if (laptop.color.equalsIgnoreCase((String) menuMap.get(4))){
+                    mapFilter4.add(laptop);
+                }
+            }
+        }
+
+        if(!mapFilter1.isEmpty()){
+            laptopSet.addAll(mapFilter1);
+            if(!mapFilter2.isEmpty()){
+                laptopSet.retainAll(mapFilter2);
+            }
+            if(!mapFilter3.isEmpty()){
+                laptopSet.retainAll(mapFilter3);
+            }
+            if(!mapFilter4.isEmpty()){
+                laptopSet.retainAll(mapFilter4);
+            }
+        } else if (!mapFilter2.isEmpty()) {
+            laptopSet.addAll(mapFilter2);
+            if(!mapFilter3.isEmpty()){
+                laptopSet.retainAll(mapFilter3);
+            }
+            if(!mapFilter4.isEmpty()){
+                laptopSet.retainAll(mapFilter4);
+            }
+        } else if (!mapFilter3.isEmpty()) {
+            laptopSet.addAll(mapFilter3);
+            if(!mapFilter4.isEmpty()){
+                laptopSet.retainAll(mapFilter4);
+            }
+        } else if (!mapFilter4.isEmpty()) {
+            laptopSet.addAll(mapFilter4);
+        }
+
+
+
+//        mapFilter1.retainAll(mapFilter2);
+//        mapFilter1.retainAll(mapFilter3);
+//        laptopSet.retainAll(mapFilter3);
+//        laptopSet.retainAll(mapFilter4);
+
+//        for(Laptop laptop:mapFilter1){
+//            System.out.println(laptop);
+//        }
+//        System.out.println();
+//
+//        for(Laptop laptop:mapFilter2){
+//            System.out.println(laptop);
+//        }
+//        System.out.println();
+
+        if(!laptopSet.isEmpty()){
+            for (Laptop laptop:laptopSet){
+                System.out.println(laptop);
+            }
+        }
+        else {
+            System.out.println("Ноутбук с параметрами "+menuMap+" не найден" );
         }
     }
 }
