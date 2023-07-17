@@ -42,7 +42,8 @@ public class Main {
         laptopList.add(lt4);
         laptopList.add(lt5);
         laptopList.add(lt6);
-        Map menuMap = new HashMap<>();
+
+        Map<Object, Object> menuMap = new HashMap<>();
 
 
         menu(laptopList,laptopSet,menuMap);
@@ -63,43 +64,37 @@ public class Main {
             System.out.println("Введите цифру, соответствующую необходимому критерию ");
             Integer choice = scanner.nextInt();
 
-            switch (choice){
-                case 1:
+            switch (choice) {
+                case 1 -> {
                     System.out.println("Введите размер ОЗУ");
-                    menuMap.put(choice,scanner.nextInt());
-                    break;
-                case 2:
+                    menuMap.put(choice, scanner.nextInt());
+                }
+                case 2 -> {
                     System.out.println("Введите размер ЖД");
-                    menuMap.put(choice,scanner.nextInt());
-                    break;
-                case 3:
+                    menuMap.put(choice, scanner.nextInt());
+                }
+                case 3 -> {
                     System.out.println("Введите название операционной системы");
-                    menuMap.put(choice,scanner.next());
-                    break;
-                case 4:
+                    menuMap.put(choice, scanner.next());
+                }
+                case 4 -> {
                     System.out.println("Введите цвет");
-                    menuMap.put(choice,scanner.next());
-                    break;
-                case 5:
+                    menuMap.put(choice, scanner.next());
+                }
+                case 5 -> {
                     //System.out.println(menuMap);
-                    filter(laptopList,laptopSet,menuMap);
-                    flag=false;
-                    break;
+                    filter(laptopList, laptopSet, menuMap);
+                    flag = false;
+                }
             }
         }
     }
     static void filter(List<Laptop> laptopList, Set<Laptop> laptopSet,Map menuMap){
-//        for(Laptop laptop:laptopList){
-//            if(laptop.ram>=(int)menuMap.get(1)&&laptop.hdd>=(int)menuMap.get(2)
-//            && laptop.operatingSystem.equalsIgnoreCase((String) menuMap.get(3))&&
-//            laptop.color.equalsIgnoreCase((String) menuMap.get(4))){
-//                laptopSet.add(laptop);
-//            }
-//        }
-        Set <Laptop> mapFilter1 = new HashSet();
-        Set <Laptop> mapFilter2 = new HashSet();
-        Set <Laptop> mapFilter3 = new HashSet();
-        Set <Laptop> mapFilter4 = new HashSet();
+
+        Set <Laptop> mapFilter1 = new HashSet<>();
+        Set <Laptop> mapFilter2 = new HashSet<>();
+        Set <Laptop> mapFilter3 = new HashSet<>();
+        Set <Laptop> mapFilter4 = new HashSet<>();
 
         if (menuMap.containsKey(1)){
             for (Laptop laptop:laptopList){
@@ -158,23 +153,6 @@ public class Main {
         } else if (!mapFilter4.isEmpty()) {
             laptopSet.addAll(mapFilter4);
         }
-
-
-
-//        mapFilter1.retainAll(mapFilter2);
-//        mapFilter1.retainAll(mapFilter3);
-//        laptopSet.retainAll(mapFilter3);
-//        laptopSet.retainAll(mapFilter4);
-
-//        for(Laptop laptop:mapFilter1){
-//            System.out.println(laptop);
-//        }
-//        System.out.println();
-//
-//        for(Laptop laptop:mapFilter2){
-//            System.out.println(laptop);
-//        }
-//        System.out.println();
 
         if(!laptopSet.isEmpty()){
             for (Laptop laptop:laptopSet){
